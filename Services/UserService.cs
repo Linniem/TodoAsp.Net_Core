@@ -50,9 +50,13 @@ namespace TaskCore.Services
 
         public async Task<int?> GetUserIdAsync(string userName)
         {
-            return (await userRepo.GetAll()
-                .FirstOrDefaultAsync(x => x.UserName == userName))
-                .UserId;
+            var user = await userRepo.GetAll()
+                .FirstOrDefaultAsync(x => x.UserName == userName);
+            if (user != null)
+            {
+                return user.UserId;
+            }
+            return null;
         }
     }
 }
